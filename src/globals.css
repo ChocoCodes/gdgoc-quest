@@ -1,0 +1,12 @@
+@import "tailwindcss";
+
+@font-face {
+  font-family: "Jacquard";
+  src: url('/fonts/Jacquard24-Regular.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@theme {
+  --font-jacquard: "Jaquard", sans-serif;
+}
