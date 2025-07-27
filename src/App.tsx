@@ -1,57 +1,39 @@
-import { QuestBoard, QuestCard } from './components/components'
-import { useRandomTasks, useLocalStorage, type SelectedTask } from './hooks/hooks'
-import { useState, useEffect } from 'react'
+"use client"
+
+import { QuestBoard, QuestVerification } from "./components/components"
+import { useQuestBank, type Quest } from "./hooks/hooks"
+import { useState } from "react"
 
 function App() {
-  const { generatedTasks } = useRandomTasks()
-  const { setCachedTask, getCachedTasks, removeTask } = useLocalStorage()
-  const [finalTasks, setFinalTasks] = useState<string[]>([])
-  const [selectedTask, setSelectedTask] = useState<SelectedTask | null>(null)
-  const [visible, setVisible] = useState(false)
+  const { userQuests, verifyAndCompleteQuest, getTotalPoints } = useQuestBank()
+  const [selectedQuest, setSelectedQuest] = useState<Quest | null>(null)
+  const [isModalVisible, setIsModalVisible] = useState(false)
 
-  useEffect(() => {
-    const cachedGenerated = getCachedTasks('generatedTasks')
-    const cachedSelected = getCachedTasks('selectedTask')
-    if (typeof cachedSelected === 'object' && !Array.isArray(cachedSelected)) {
-      if(cachedSelected && !cachedSelected.completed) {
-        setSelectedTask(cachedSelected)
-        setVisible(true)
-      }
-    }
-
-    if (cachedGenerated && Array.isArray(cachedGenerated)) {
-      setFinalTasks(cachedGenerated)
-    } else if (generatedTasks.length > 0) {
-      setCachedTask(generatedTasks, 'generatedTasks')
-      setFinalTasks(generatedTasks)
-    }
-  }, [generatedTasks])
-
-  const handleClick = (task: string) => {
-    console.log(task)
-    setSelectedTask({
-      task: task,
-      completed: false
-    })
-    setVisible(!visible)
+  const handleQuestClick = (quest: Quest) => {
+    if (quest.completed) return
+    setSelectedQuest(quest)
+    setIsModalVisible(true)
   }
 
-  const handleComplete = (task: SelectedTask) => {
-    setSelectedTask({
-      ...task,
-      completed: true
-    })
-    if (selectedTask?.completed) { 
-      removeTask(selectedTask?.task) 
-    }
+  const handleVerification = (questId: string, passcode: string): boolean => {
+    return verifyAndCompleteQuest(questId, passcode)
+  }
+
+  const handleCloseModal = () => {
+    setIsModalVisible(false)
+    setSelectedQuest(null)
   }
 
   return (
-    <main className="w-screen h-screen flex justify-center items-center bg-[url('/ui/background.png')] bg-no-repeat bg-cover bg-center opacity-95"> 
-      <QuestBoard tasks={ finalTasks } onTaskClick={ handleClick }/>
-      {(visible && selectedTask) &&  (
-        <QuestCard task={selectedTask} onComplete={ handleComplete } onClose={() => setVisible(false)} />
-      )}
+    <main className="min-h-screen w-full bg-[url('/ui/background.png')] bg-no-repeat bg-cover bg-center bg-fixed">
+      {/* Optimized background overlay for better contrast */}
+      <div className="min-h-screen w-full bg-gradient-to-b from-black/15 via-black/5 to-black/15 flex items-center justify-center py-8">
+        <QuestBoard quests={userQuests} onQuestClick={handleQuestClick} totalPoints={getTotalPoints()} />
+
+        {isModalVisible && selectedQuest && (
+          <QuestVerification quest={selectedQuest} onVerify={handleVerification} onClose={handleCloseModal} />
+        )}
+      </div>
     </main>
   )
 }

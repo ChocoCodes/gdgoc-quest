@@ -1,4 +1,4 @@
-import { QuestBoard } from "./quest-board";
-import { QuestCard } from "./quest-card";
+import { QuestBoard } from "./quest-board"
+import { QuestVerification } from "./quest-verification"
 
-export { QuestBoard, QuestCard }
+export { QuestBoard, QuestVerification }
