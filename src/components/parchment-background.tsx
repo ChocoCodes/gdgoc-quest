@@ -1,4 +1,4 @@
-import type React from "react";
+import React from "react";
 
 interface ParchmentBackgroundProps {
   children: React.ReactNode;
@@ -6,14 +6,14 @@ interface ParchmentBackgroundProps {
   minHeight?: string; // Optional prop for min-height, defaults to 'min-h-[90vh]'
 }
 
-const ParchmentBackground = ({
-  children,
-  className = "",
-  minHeight = "min-h-[90vh]",
-}: ParchmentBackgroundProps) => {
+const ParchmentBackground = React.forwardRef<
+  HTMLDivElement,
+  ParchmentBackgroundProps
+>(({ children, className = "", minHeight = "min-h-[90vh]" }, ref) => {
   return (
     <div
-      className={`relative bg-[url('/ui/parchement.png')] bg-no-repeat bg-contain bg-center flex flex-col items-center ${minHeight} ${className}`}
+      ref={ref} // Forward the ref here
+      className={`relative bg-[url('/ui/parchement.png')] bg-no-repeat bg-contain bg-center flex flex-col items-center ${minHeight} ${className} overflow-hidden`} // Added overflow-hidden
       style={{
         backgroundSize: "contain",
         backgroundPosition: "center",
@@ -23,6 +23,8 @@ const ParchmentBackground = ({
       {children}
     </div>
   );
-};
+});
+
+ParchmentBackground.displayName = "ParchmentBackground"; // Add display name for better debugging
 
 export { ParchmentBackground };

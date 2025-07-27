@@ -5,6 +5,7 @@ import type React from "react";
 import { useState, useEffect } from "react";
 import { useGSAPAnimations } from "../hooks/useGSAPAnimations";
 import type { Quest } from "../hooks/useQuestBank";
+import { ParchmentBackground } from "./parchment-background"; // Import the new component
 
 interface QuestVerificationProps {
   quest: Quest;
@@ -110,13 +111,9 @@ const QuestVerification = ({
         className="relative max-w-3xl w-full"
         onClick={(e) => e.stopPropagation()}
       >
-        <div
-          className="relative bg-[url('/ui/parchement.png')] bg-no-repeat bg-contain bg-center min-h-[700px] flex flex-col justify-center items-center p-16"
-          style={{
-            backgroundSize: "contain",
-            backgroundPosition: "center",
-            filter: "contrast(1.1) brightness(1.02)",
-          }}
+        <ParchmentBackground
+          minHeight="min-h-[700px]"
+          className="p-8 sm:p-12 md:p-16 lg:p-20"
         >
           {success ? (
             // Success State with Medieval Celebration
@@ -251,7 +248,7 @@ const QuestVerification = ({
               </div>
             </>
           )}
-        </div>
+        </ParchmentBackground>
       </div>
     </div>
   );
