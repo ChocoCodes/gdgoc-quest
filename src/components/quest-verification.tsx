@@ -27,7 +27,7 @@ const QuestVerification = ({
 
   useEffect(() => {
     animateModalEntrance();
-  }, []);
+  }, [animateModalEntrance]);
 
   const handleBackdropClick = (e: React.MouseEvent) => {
     if (e.target === e.currentTarget) {
@@ -125,9 +125,6 @@ const QuestVerification = ({
               <h2 className="font-jacquard-display text-display-lg text-green-800 mb-6 tracking-wide text-readable">
                 QUEST SEALED!
               </h2>
-              <p className="font-serif-readable text-heading-lg text-green-700 mb-4 text-readable">
-                +{quest.points} Honor Points Bestowed
-              </p>
               <p className="font-serif-readable text-body-lg text-amber-800 leading-relaxed text-readable">
                 Thy deed is recorded in the annals of valor.
                 <br />
@@ -181,9 +178,6 @@ const QuestVerification = ({
                   </span>
                   <span className="text-amber-800 font-bold bg-amber-50 px-3 py-1 rounded-full border border-amber-300 font-serif-readable">
                     {quest.category}
-                  </span>
-                  <span className="text-amber-900 font-bold bg-yellow-100 px-3 py-1 rounded-full border border-yellow-400 font-serif-readable">
-                    {quest.points} Points
                   </span>
                 </div>
                 <p className="font-serif-readable text-body-lg text-amber-900 leading-relaxed text-readable">

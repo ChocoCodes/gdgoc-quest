@@ -1,4 +1,5 @@
-import { QuestBoard } from "./quest-board"
-import { QuestVerification } from "./quest-verification"
+import { QuestBoard } from "./quest-board";
+import { QuestVerification } from "./quest-verification";
+import { ParchmentBackground } from "./parchment-background";
 
-export { QuestBoard, QuestVerification }
+export { QuestBoard, QuestVerification, ParchmentBackground };

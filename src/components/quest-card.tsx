@@ -1,22 +1,22 @@
-import { useState } from "react"
-import type { SelectedTask } from "../hooks/hooks"
+import { useState } from "react";
+import type { Quest } from "../hooks/useQuestBank";
 
 interface QuestCardProps {
-  task: SelectedTask
-  onComplete: (task: SelectedTask) => void
-  onClose: () => void
+  quest: Quest;
+  onComplete: (quest: Quest) => void;
+  onClose: () => void;
 }
 
-const QuestCard = ({ task, onComplete, onClose }: QuestCardProps) => {
-  const [isCompleting, setIsCompleting] = useState(false)
+const QuestCard = ({ quest, onComplete, onClose }: QuestCardProps) => {
+  const [isCompleting, setIsCompleting] = useState(false);
 
   const handleComplete = () => {
-    setIsCompleting(true)
+    setIsCompleting(true);
     setTimeout(() => {
-      onComplete({ ...task, completed: true })
-      setIsCompleting(false)
-    }, 800)
-  }
+      onComplete({ ...quest, completed: true });
+      setIsCompleting(false);
+    }, 800);
+  };
 
   return (
     <div className="fixed inset-0 backdrop-blur-md bg-black/50 flex items-center justify-center z-50 p-4">
@@ -39,7 +39,7 @@ const QuestCard = ({ task, onComplete, onClose }: QuestCardProps) => {
 
           {/* Ornate Header */}
           <div className="text-center mb-8">
-            <h2 className="font-jacquard text-4xl md:text-5xl font-bold text-amber-900 mb-4 drop-shadow-lg">
+            <h2 className="font-jacquard-display text-4xl md:text-5xl font-bold text-amber-900 mb-4 drop-shadow-lg">
               Quest Details
             </h2>
             <div className="flex items-center justify-center gap-4">
@@ -60,8 +60,8 @@ const QuestCard = ({ task, onComplete, onClose }: QuestCardProps) => {
               <div className="absolute -bottom-1 -right-1 w-6 h-6 bg-amber-800 rotate-45"></div>
 
               {/* Quest Text */}
-              <p className="font-jacquard text-lg md:text-xl leading-relaxed text-amber-900 text-center font-medium">
-                {task.task}
+              <p className="font-serif-readable text-lg md:text-xl leading-relaxed text-amber-900 text-center font-medium">
+                {quest.description}
               </p>
             </div>
           </div>
@@ -71,7 +71,7 @@ const QuestCard = ({ task, onComplete, onClose }: QuestCardProps) => {
             <button
               onClick={handleComplete}
               disabled={isCompleting}
-              className={`relative px-8 py-4 font-jacquard font-bold text-lg rounded-lg transition-all duration-300 shadow-lg ${
+              className={`relative px-8 py-4 font-serif-readable font-bold text-lg rounded-lg transition-all duration-300 shadow-lg ${
                 isCompleting
                   ? "bg-green-400 text-white cursor-not-allowed"
                   : "bg-gradient-to-b from-green-600 to-green-700 hover:from-green-500 hover:to-green-600 text-white hover:scale-105 active:scale-95"
@@ -89,24 +89,30 @@ const QuestCard = ({ task, onComplete, onClose }: QuestCardProps) => {
 
             <button
               onClick={onClose}
-              className="px-8 py-4 font-jacquard font-bold text-lg bg-gradient-to-b from-amber-600 to-amber-700 hover:from-amber-500 hover:to-amber-600 text-white rounded-lg transition-all duration-300 hover:scale-105 active:scale-95 shadow-lg"
+              className="px-8 py-4 font-serif-readable font-bold text-lg bg-gradient-to-b from-amber-600 to-amber-700 hover:from-amber-500 hover:to-amber-600 text-white rounded-lg transition-all duration-300 hover:scale-105 active:scale-95 shadow-lg"
             >
               Return Later
             </button>
           </div>
 
           {/* Completion Overlay */}
-          {task.completed && (
+          {quest.completed && (
             <div className="absolute inset-0 bg-green-500/20 rounded-lg flex items-center justify-center backdrop-blur-sm">
               <div className="text-center bg-green-600/95 text-white p-8 rounded-xl shadow-2xl">
                 <div className="text-6xl mb-4">🏆</div>
-                <h3 className="font-jacquard text-2xl font-bold mb-2">Quest Completed!</h3>
-                <p className="font-jacquard text-lg">Well done, brave adventurer!</p>
+                <h3 className="font-jacquard-display text-2xl font-bold mb-2">
+                  Quest Completed!
+                </h3>
+                <p className="font-serif-readable text-lg">
+                  Well done, brave adventurer!
+                </p>
               </div>
             </div>
           )}
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
+
+export { QuestCard };

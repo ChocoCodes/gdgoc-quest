@@ -1,17 +1,17 @@
-"use client"
+"use client";
 
-import { useState, useEffect } from "react"
+import { useState, useEffect } from "react";
 
 export interface Quest {
-  id: string
-  title: string
-  description: string
-  difficulty: "Novice" | "Adept" | "Master"
-  passcode: string
-  category: "Physical" | "Mental" | "Social" | "Creative" | "Knowledge"
-  points: number
-  completed: boolean
-  completedAt?: Date
+  id: string;
+  title: string;
+  description: string;
+  difficulty: "Novice" | "Adept" | "Master";
+  passcode: string;
+  category: "Physical" | "Mental" | "Social" | "Creative" | "Knowledge";
+  points: number;
+  completed: boolean;
+  completedAt?: Date;
 }
 
 const QUEST_DESCRIPTIONS = [
@@ -30,7 +30,7 @@ const QUEST_DESCRIPTIONS = [
   "Spit a bard's verse, a rap bar to please the crowd and awaken the muses.",
   "Stride with style and pride, showcasing thy finest Runwalk of the realm.",
   "Uncover the Rune that was Lost, the Missing Letter, and claim the Grand Prize foretold. (Go_gle)",
-]
+];
 
 const QUEST_BANK: Omit<Quest, "completed" | "completedAt">[] = [
   {
@@ -168,119 +168,113 @@ const QUEST_BANK: Omit<Quest, "completed" | "completedAt">[] = [
     category: "Mental",
     points: 50,
   },
-]
+];
 
 const useQuestBank = () => {
-  const [userQuests, setUserQuests] = useState<Quest[]>([])
-  const [userId, setUserId] = useState<string>("")
+  const [userQuest, setUserQuest] = useState<Quest | null>(null);
+  const [userId, setUserId] = useState<string>("");
 
   // Generate unique user ID based on timestamp and random
   const generateUserId = () => {
-    const timestamp = Date.now().toString(36)
-    const random = Math.random().toString(36).substr(2, 5)
-    return `${timestamp}-${random}`
-  }
+    const timestamp = Date.now().toString(36);
+    const random = Math.random().toString(36).substr(2, 5);
+    return `${timestamp}-${random}`;
+  };
 
   // Initialize user session
   useEffect(() => {
     // Seeded random function for consistent randomization per user
     const seededRandom = (seed: number) => {
-      const x = Math.sin(seed) * 10000
-      return x - Math.floor(x)
-    }
+      const x = Math.sin(seed) * 10000;
+      return x - Math.floor(x);
+    };
 
-    // Select 3 random quests for user with balanced difficulty
-    const selectUserQuests = (uid: string): Quest[] => {
+    // Select 1 random quest for user
+    const selectUserQuest = (uid: string): Quest => {
       const seed = uid.split("").reduce((a, b) => {
-        a = (a << 5) - a + b.charCodeAt(0)
-        return a & a
-      }, 0)
+        a = (a << 5) - a + b.charCodeAt(0);
+        return a & a;
+      }, 0);
 
-      const availableQuests = [...QUEST_BANK]
-      const selected: Quest[] = []
+      const randomIndex = Math.floor(seededRandom(seed) * QUEST_BANK.length);
+      const selectedQuest = QUEST_BANK[randomIndex];
 
-      // Select 3 quests using seeded randomization
-      for (let i = 0; i < 3; i++) {
-        const randomIndex = Math.floor(seededRandom(seed + i) * availableQuests.length)
-        const selectedQuest = availableQuests[randomIndex]
+      return {
+        ...selectedQuest,
+        completed: false,
+      };
+    };
 
-        selected.push({
-          ...selectedQuest,
-          completed: false,
-        })
-
-        // Remove selected quest to avoid duplicates
-        availableQuests.splice(randomIndex, 1)
-      }
-
-      return selected
-    }
-
-    let storedUserId = localStorage.getItem("questUserId")
-    const storedQuests = localStorage.getItem("userQuests")
-    const sessionStart = localStorage.getItem("sessionStart")
+    let storedUserId = localStorage.getItem("questUserId");
+    const storedQuest = localStorage.getItem("userQuest");
+    const sessionStart = localStorage.getItem("sessionStart");
 
     // Check if session is older than 24 hours
-    const now = Date.now()
-    const sessionAge = sessionStart ? now - Number.parseInt(sessionStart) : 0
-    const isSessionExpired = sessionAge > 24 * 60 * 60 * 1000 // 24 hours
+    const now = Date.now();
+    const sessionAge = sessionStart ? now - Number.parseInt(sessionStart) : 0;
+    const isSessionExpired = sessionAge > 24 * 60 * 60 * 1000; // 24 hours
 
     if (!storedUserId || isSessionExpired) {
-      storedUserId = generateUserId()
-      localStorage.setItem("questUserId", storedUserId)
-      localStorage.setItem("sessionStart", now.toString())
-      localStorage.removeItem("userQuests") // Clear old quests
+      storedUserId = generateUserId();
+      localStorage.setItem("questUserId", storedUserId);
+      localStorage.setItem("sessionStart", now.toString());
+      localStorage.removeItem("userQuest"); // Clear old quest
     }
 
-    setUserId(storedUserId)
+    setUserId(storedUserId);
 
-    if (storedQuests && !isSessionExpired) {
+    if (storedQuest && !isSessionExpired) {
       try {
-        const parsed = JSON.parse(storedQuests)
-        setUserQuests(parsed)
+        const parsed = JSON.parse(storedQuest);
+        setUserQuest(parsed);
       } catch {
-        const newQuests = selectUserQuests(storedUserId)
-        setUserQuests(newQuests)
-        localStorage.setItem("userQuests", JSON.stringify(newQuests))
+        const newQuest = selectUserQuest(storedUserId);
+        setUserQuest(newQuest);
+        localStorage.setItem("userQuest", JSON.stringify(newQuest));
       }
     } else {
-      const newQuests = selectUserQuests(storedUserId)
-      setUserQuests(newQuests)
-      localStorage.setItem("userQuests", JSON.stringify(newQuests))
+      const newQuest = selectUserQuest(storedUserId);
+      setUserQuest(newQuest);
+      localStorage.setItem("userQuest", JSON.stringify(newQuest));
     }
-  }, [])
+  }, []);
 
-  const verifyAndCompleteQuest = (questId: string, passcode: string): boolean => {
-    const quest = userQuests.find((q) => q.id === questId)
-    if (!quest || quest.completed) return false
+  const verifyAndCompleteQuest = (
+    questId: string,
+    passcode: string
+  ): boolean => {
+    if (!userQuest || userQuest.completed || userQuest.id !== questId)
+      return false;
 
-    if (quest.passcode.toUpperCase() === passcode.toUpperCase()) {
-      const updatedQuests = userQuests.map((q) =>
-        q.id === questId ? { ...q, completed: true, completedAt: new Date() } : q,
-      )
-      setUserQuests(updatedQuests)
-      localStorage.setItem("userQuests", JSON.stringify(updatedQuests))
-      return true
+    if (userQuest.passcode.toUpperCase() === passcode.toUpperCase()) {
+      const updatedQuest = {
+        ...userQuest,
+        completed: true,
+        completedAt: new Date(),
+      };
+      setUserQuest(updatedQuest);
+      localStorage.setItem("userQuest", JSON.stringify(updatedQuest));
+      return true;
     }
-    return false
-  }
+    return false;
+  };
 
   const getTotalPoints = () => {
-    return userQuests.filter((q) => q.completed).reduce((sum, q) => sum + q.points, 0)
-  }
+    return userQuest?.completed ? userQuest.points : 0;
+  };
 
   const getCompletedCount = () => {
-    return userQuests.filter((q) => q.completed).length
-  }
+    return userQuest?.completed ? 1 : 0;
+  };
 
   return {
-    userQuests,
+    userQuest,
     userId,
     verifyAndCompleteQuest,
     getTotalPoints,
     getCompletedCount,
-    totalQuests: userQuests.length,
-  }
-}
+    totalQuests: 1,
+  };
+};
 
-export { useQuestBank }
+export { useQuestBank };
