@@ -33,22 +33,27 @@ function App() {
       task: task,
       completed: false
     })
+    if(selectedTask) {
+      setCachedTask(selectedTask, 'selectedTask')
+    }
     setVisible(!visible)
   }
 
   const handleComplete = (task: SelectedTask) => {
-    setSelectedTask({
-      ...task,
-      completed: true
-    })
-    if (selectedTask?.completed) { 
-      removeTask(selectedTask?.task) 
+    const completedTask: SelectedTask = {...task, completed: true}
+    setSelectedTask(completedTask)
+    console.log(task)
+    if (task.completed) { 
+      removeTask('selectedTask') 
+      setSelectedTask(null)
+      console.log(task ? task : 'Cleared')
     }
+    setVisible(false);
   }
 
   return (
     <main className="w-screen h-screen flex justify-center items-center bg-[url('/ui/background.png')] bg-no-repeat bg-cover bg-center opacity-95"> 
-      <QuestBoard tasks={ finalTasks } onTaskClick={ handleClick }/>
+      <QuestBoard tasks={ finalTasks } onTaskClick={ handleClick } />
       {(visible && selectedTask) &&  (
         <QuestCard task={selectedTask} onComplete={ handleComplete } onClose={() => setVisible(false)} />
       )}

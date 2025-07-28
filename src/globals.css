@@ -8,6 +8,10 @@
 }
 
 @theme {
-  --font-jacquard: "Jaquard", sans-serif;
+  --font-jacquard: "Jacquard", sans-serif;
   --color-muted-brown: #4C392A;
+}
+
+.pixelated {
+  image-rendering: pixelated;
 }
