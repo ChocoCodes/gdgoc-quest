@@ -6,9 +6,7 @@ export interface Quest {
   id: string;
   title: string;
   description: string;
-  difficulty: "Novice" | "Adept" | "Master";
   passcode: string;
-  category: "Physical" | "Mental" | "Social" | "Creative" | "Knowledge";
   completed: boolean;
   completedAt?: Date;
   isGrandPrize?: boolean;
@@ -37,122 +35,92 @@ const QUEST_BANK: Omit<Quest, "completed" | "completedAt">[] = [
     id: "q001",
     title: "The Sacred Recitation",
     description: QUEST_DESCRIPTIONS[0],
-    difficulty: "Novice",
     passcode: "LASALLE",
-    category: "Knowledge",
   },
   {
     id: "q002",
     title: "The Seven Stone Quest",
     description: QUEST_DESCRIPTIONS[1],
-    difficulty: "Master",
     passcode: "STONES7",
-    category: "Physical",
   },
   {
     id: "q003",
     title: "The Scroll of Searches",
     description: QUEST_DESCRIPTIONS[2],
-    difficulty: "Novice",
     passcode: "SEARCH",
-    category: "Knowledge",
   },
   {
     id: "q004",
     title: "The Backwards Incantation",
     description: QUEST_DESCRIPTIONS[3],
-    difficulty: "Adept",
     passcode: "ZYXWVU",
-    category: "Mental",
   },
   {
     id: "q005",
     title: "The Digital Relics",
     description: QUEST_DESCRIPTIONS[4],
-    difficulty: "Master",
     passcode: "GOOGLE",
-    category: "Knowledge",
   },
   {
     id: "q006",
     title: "The Hidden Talent",
     description: QUEST_DESCRIPTIONS[5],
-    difficulty: "Adept",
     passcode: "TALENT",
-    category: "Creative",
   },
   {
     id: "q007",
     title: "The Herald's Proclamation",
     description: QUEST_DESCRIPTIONS[6],
-    difficulty: "Master",
     passcode: "HERALD",
-    category: "Social",
   },
   {
     id: "q008",
     title: "The Burden Bearer",
     description: QUEST_DESCRIPTIONS[7],
-    difficulty: "Adept",
     passcode: "CARRY",
-    category: "Physical",
   },
   {
     id: "q009",
     title: "The Sacred Preamble",
     description: QUEST_DESCRIPTIONS[8],
-    difficulty: "Novice",
     passcode: "PREAMBLE",
-    category: "Knowledge",
   },
   {
     id: "q010",
     title: "The Trial of Vigor",
     description: QUEST_DESCRIPTIONS[9],
-    difficulty: "Novice",
     passcode: "VIGOR",
-    category: "Physical",
   },
   {
     id: "q011",
     title: "The Cartwheel of Valor",
     description: QUEST_DESCRIPTIONS[10],
-    difficulty: "Adept",
     passcode: "WHEEL",
-    category: "Physical",
   },
   {
     id: "q012",
     title: "The Star of Fortune",
     description: QUEST_DESCRIPTIONS[11],
-    difficulty: "Master",
     passcode: "GEMINI",
-    category: "Physical",
     isGrandPrize: true,
   },
   {
     id: "q013",
     title: "The Bard's Verse",
     description: QUEST_DESCRIPTIONS[12],
-    difficulty: "Adept",
     passcode: "VERSE",
-    category: "Creative",
   },
   {
     id: "q014",
     title: "The Royal Stride",
     description: QUEST_DESCRIPTIONS[13],
-    difficulty: "Novice",
     passcode: "STRIDE",
-    category: "Creative",
   },
   {
     id: "q015",
     title: "The Lost Rune",
     description: QUEST_DESCRIPTIONS[14],
-    difficulty: "Master",
     passcode: "GOOGLE",
-    category: "Mental",
     isGrandPrize: true,
   },
 ];
