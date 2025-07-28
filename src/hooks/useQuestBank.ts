@@ -7,9 +7,9 @@ export interface Quest {
   difficulty: "Novice" | "Adept" | "Master"
   passcode: string
   category: "Physical" | "Mental" | "Social" | "Creative" | "Knowledge"
-  points: number
   completed: boolean
   completedAt?: Date
+  isGrandPrize?: boolean
 }
 
 const QUEST_DESCRIPTIONS = [
@@ -38,7 +38,6 @@ const QUEST_BANK: Omit<Quest, "completed" | "completedAt">[] = [
     difficulty: "Novice",
     passcode: "LASALLE",
     category: "Knowledge",
-    points: 15,
   },
   {
     id: "q002",
@@ -47,7 +46,6 @@ const QUEST_BANK: Omit<Quest, "completed" | "completedAt">[] = [
     difficulty: "Master",
     passcode: "STONES7",
     category: "Physical",
-    points: 35,
   },
   {
     id: "q003",
@@ -56,7 +54,6 @@ const QUEST_BANK: Omit<Quest, "completed" | "completedAt">[] = [
     difficulty: "Novice",
     passcode: "SEARCH",
     category: "Knowledge",
-    points: 10,
   },
   {
     id: "q004",
@@ -65,7 +62,6 @@ const QUEST_BANK: Omit<Quest, "completed" | "completedAt">[] = [
     difficulty: "Adept",
     passcode: "ZYXWVU",
     category: "Mental",
-    points: 20,
   },
   {
     id: "q005",
@@ -74,7 +70,6 @@ const QUEST_BANK: Omit<Quest, "completed" | "completedAt">[] = [
     difficulty: "Master",
     passcode: "GOOGLE",
     category: "Knowledge",
-    points: 30,
   },
   {
     id: "q006",
@@ -83,7 +78,6 @@ const QUEST_BANK: Omit<Quest, "completed" | "completedAt">[] = [
     difficulty: "Adept",
     passcode: "TALENT",
     category: "Creative",
-    points: 25,
   },
   {
     id: "q007",
@@ -92,7 +86,6 @@ const QUEST_BANK: Omit<Quest, "completed" | "completedAt">[] = [
     difficulty: "Master",
     passcode: "HERALD",
     category: "Social",
-    points: 40,
   },
   {
     id: "q008",
@@ -101,7 +94,6 @@ const QUEST_BANK: Omit<Quest, "completed" | "completedAt">[] = [
     difficulty: "Adept",
     passcode: "CARRY",
     category: "Physical",
-    points: 20,
   },
   {
     id: "q009",
@@ -110,7 +102,6 @@ const QUEST_BANK: Omit<Quest, "completed" | "completedAt">[] = [
     difficulty: "Novice",
     passcode: "PREAMBLE",
     category: "Knowledge",
-    points: 15,
   },
   {
     id: "q010",
@@ -119,7 +110,6 @@ const QUEST_BANK: Omit<Quest, "completed" | "completedAt">[] = [
     difficulty: "Novice",
     passcode: "VIGOR",
     category: "Physical",
-    points: 15,
   },
   {
     id: "q011",
@@ -128,7 +118,6 @@ const QUEST_BANK: Omit<Quest, "completed" | "completedAt">[] = [
     difficulty: "Adept",
     passcode: "WHEEL",
     category: "Physical",
-    points: 25,
   },
   {
     id: "q012",
@@ -137,7 +126,7 @@ const QUEST_BANK: Omit<Quest, "completed" | "completedAt">[] = [
     difficulty: "Master",
     passcode: "GEMINI",
     category: "Physical",
-    points: 45,
+    isGrandPrize: true,
   },
   {
     id: "q013",
@@ -146,7 +135,6 @@ const QUEST_BANK: Omit<Quest, "completed" | "completedAt">[] = [
     difficulty: "Adept",
     passcode: "VERSE",
     category: "Creative",
-    points: 20,
   },
   {
     id: "q014",
@@ -155,7 +143,6 @@ const QUEST_BANK: Omit<Quest, "completed" | "completedAt">[] = [
     difficulty: "Novice",
     passcode: "STRIDE",
     category: "Creative",
-    points: 15,
   },
   {
     id: "q015",
@@ -164,7 +151,7 @@ const QUEST_BANK: Omit<Quest, "completed" | "completedAt">[] = [
     difficulty: "Master",
     passcode: "GOOGLE",
     category: "Mental",
-    points: 50,
+    isGrandPrize: true,
   },
 ]
 
@@ -190,8 +177,24 @@ const useQuestBank = () => {
         return a & a
       }, 0)
 
-      const randomIndex = Math.floor(seededRandom(seed) * QUEST_BANK.length)
-      const selectedQuest = QUEST_BANK[randomIndex]
+      // Separate regular quests from grand prize quests
+      const regularQuests = QUEST_BANK.filter((quest) => !quest.isGrandPrize)
+      const grandPrizeQuests = QUEST_BANK.filter((quest) => quest.isGrandPrize)
+
+      // Use seeded random to determine if user gets a grand prize quest
+      const grandPrizeChance = seededRandom(seed + 1000) // Different seed for grand prize determination
+      const shouldGetGrandPrize = grandPrizeChance < 0.067 // ~6.7% chance (1 in 15)
+
+      let selectedQuest
+      if (shouldGetGrandPrize && grandPrizeQuests.length > 0) {
+        // Select from grand prize quests
+        const grandPrizeIndex = Math.floor(seededRandom(seed + 2000) * grandPrizeQuests.length)
+        selectedQuest = grandPrizeQuests[grandPrizeIndex]
+      } else {
+        // Select from regular quests
+        const regularIndex = Math.floor(seededRandom(seed) * regularQuests.length)
+        selectedQuest = regularQuests[regularIndex]
+      }
 
       return {
         ...selectedQuest,
@@ -261,8 +264,22 @@ const useQuestBank = () => {
       return a & a
     }, 0)
 
-    const randomIndex = Math.floor(seededRandom(seed) * QUEST_BANK.length)
-    const selectedQuest = QUEST_BANK[randomIndex]
+    // Separate regular quests from grand prize quests
+    const regularQuests = QUEST_BANK.filter((quest) => !quest.isGrandPrize)
+    const grandPrizeQuests = QUEST_BANK.filter((quest) => quest.isGrandPrize)
+
+    // Use seeded random to determine if user gets a grand prize quest
+    const grandPrizeChance = seededRandom(seed + 1000)
+    const shouldGetGrandPrize = grandPrizeChance < 0.067 // ~6.7% chance (1 in 15)
+
+    let selectedQuest
+    if (shouldGetGrandPrize && grandPrizeQuests.length > 0) {
+      const grandPrizeIndex = Math.floor(seededRandom(seed + 2000) * grandPrizeQuests.length)
+      selectedQuest = grandPrizeQuests[grandPrizeIndex]
+    } else {
+      const regularIndex = Math.floor(seededRandom(seed) * regularQuests.length)
+      selectedQuest = regularQuests[regularIndex]
+    }
 
     const newQuest: Quest = {
       ...selectedQuest,
@@ -271,10 +288,6 @@ const useQuestBank = () => {
 
     setUserQuest(newQuest)
     localStorage.setItem("userQuest", JSON.stringify(newQuest))
-  }
-
-  const getTotalPoints = () => {
-    return userQuest?.completed ? userQuest.points : 0
   }
 
   const getCompletedCount = () => {
@@ -286,7 +299,6 @@ const useQuestBank = () => {
     userId,
     verifyAndCompleteQuest,
     resetQuest,
-    getTotalPoints,
     getCompletedCount,
     totalQuests: 1,
   }
