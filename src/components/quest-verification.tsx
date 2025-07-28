@@ -96,7 +96,6 @@ const QuestVerification = ({
             </div>
           ) : (
             <div className="flex flex-col h-full space-y-8 sm:space-y-10 pt-8 lg:space-y-12">
-              {/* Header section */}
               <div className="text-center space-y-4 sm:space-y-5">
                 <h2 className="font-jacquard-display text-display-lg text-amber-900 tracking-wide">
                   QUEST VERIFICATION
@@ -114,7 +113,6 @@ const QuestVerification = ({
                 </p>
               </div>
 
-              {/* Quest details */}
               <div
                 className={`bg-gradient-to-br from-amber-50/90 to-amber-100/80 border-3 border-amber-800/50 rounded-lg p-8 mb-10 max-w-2xl w-full shadow-inner relative
                   ${
@@ -141,13 +139,11 @@ const QuestVerification = ({
                 >
                   {quest.title}
                 </h3>
-                {/* Removed the div containing difficulty and category spans */}
                 <p className="font-serif-readable text-body-lg text-amber-900 leading-relaxed text-readable">
                   {quest.description}
                 </p>
               </div>
 
-              {/* Input section */}
               <div className="space-y-4 w-full">
                 <label className="block font-serif-readable text-heading-lg font-bold text-amber-900 text-center">
                   Sacred Verification Rune:
@@ -169,7 +165,6 @@ const QuestVerification = ({
                 )}
               </div>
 
-              {/* Buttons */}
               <div className="flex flex-col sm:flex-row justify-center gap-6 sm:gap-8">
                 <button
                   onClick={handleVerify}
@@ -200,7 +195,6 @@ const QuestVerification = ({
                 </button>
               </div>
 
-              {/* Footer */}
               <div className="text-center mt-auto pt-4 sm:pt-6">
                 <p className="font-serif-readable text-body-md text-amber-800 leading-relaxed bg-amber-100/50 border border-amber-300 rounded-lg py-4 px-6 text-sm sm:text-base">
                   Complete thy quest and seek the sacred verification rune from
