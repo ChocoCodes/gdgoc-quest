@@ -10,7 +10,6 @@
 }
 
 :root {
-  /* Medieval color palette */
   --parchment-light: #f8f5f0;
   --parchment-medium: #f0ead6;
   --parchment-dark: #e6dcc4;
@@ -21,7 +20,6 @@
   --gold-accent: #d4af37;
   --bronze-accent: #cd7f32;
 
-  /* Standard theme variables */
   --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);
   --card: oklch(1 0 0);
@@ -138,7 +136,6 @@
 
   body {
     @apply bg-background text-foreground;
-    /* Default body font for general readability */
     font-family: Georgia, "Times New Roman", serif;
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
@@ -146,10 +143,9 @@
   }
 }
 
-/* Thematic Jacquard Font for Titles and Key Headings */
 .font-jacquard-display {
   font-family: "Jacquard", Georgia, "Times New Roman", serif;
-  font-weight: normal; /* Jacquard24-Regular is normal weight */
+  font-weight: normal;
   line-height: 1.2;
   letter-spacing: 0.05em;
   text-rendering: optimizeLegibility;
@@ -157,7 +153,6 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* General Readable Serif Font for Body Text */
 .font-serif-readable {
   font-family: Georgia, "Times New Roman", serif;
   font-weight: normal;
@@ -168,33 +163,31 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Specific font sizes for better readability and responsiveness */
 .text-display-xl {
-  font-size: 3.5rem; /* ~56px */
+  font-size: 3.5rem;
 }
 .text-display-lg {
-  font-size: 2.5rem; /* ~40px */
+  font-size: 2.5rem;
 }
 .text-heading-xl {
-  font-size: 2rem; /* ~32px */
+  font-size: 2rem;
 }
 .text-heading-lg {
-  font-size: 1.75rem; /* ~28px */
+  font-size: 1.75rem;
 }
 .text-body-lg {
-  font-size: 1.125rem; /* ~18px */
+  font-size: 1.125rem;
 }
 .text-body-md {
-  font-size: 1rem; /* ~16px */
+  font-size: 1rem;
 }
 .text-body-sm {
-  font-size: 0.9375rem; /* ~15px */
+  font-size: 0.9375rem;
 }
 .text-caption {
-  font-size: 0.875rem; /* ~14px */
+  font-size: 0.875rem;
 }
 
-/* Responsive font sizing */
 @media (max-width: 1024px) {
   .text-display-xl {
     font-size: 2.8rem;
@@ -265,7 +258,6 @@
   }
 }
 
-/* Authentic Medieval Borders */
 .border-3 {
   border-width: 3px;
 }
@@ -286,7 +278,6 @@
   border-bottom-width: 3px;
 }
 
-/* Parchment texture effects */
 .parchment-texture {
   position: relative;
   background: linear-gradient(
@@ -304,34 +295,15 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background-image: radial-gradient(
-      circle at 20% 20%,
-      rgba(139, 69, 19, 0.03) 0%,
-      transparent 30%
-    ),
-    radial-gradient(
-      circle at 80% 80%,
-      rgba(160, 82, 45, 0.02) 0%,
-      transparent 30%
-    ),
-    radial-gradient(
-      circle at 40% 60%,
-      rgba(139, 69, 19, 0.015) 0%,
-      transparent 25%
-    );
+  background-image: radial-gradient(circle at 20% 20%, rgba(139, 69, 19, 0.03) 0%, transparent 30%),
+    radial-gradient(circle at 80% 80%, rgba(160, 82, 45, 0.02) 0%, transparent 30%),
+    radial-gradient(circle at 40% 60%, rgba(139, 69, 19, 0.015) 0%, transparent 25%);
   pointer-events: none;
 }
 
-/* Wax seal effects */
 .wax-seal {
-  background: radial-gradient(
-    circle at 30% 30%,
-    var(--seal-red) 0%,
-    #6b1028 70%,
-    #4a0b1c 100%
-  );
-  box-shadow: inset 0 2px 4px rgba(255, 255, 255, 0.1),
-    0 4px 8px rgba(0, 0, 0, 0.3), 0 2px 4px rgba(139, 21, 56, 0.4);
+  background: radial-gradient(circle at 30% 30%, var(--seal-red) 0%, #6b1028 70%, #4a0b1c 100%);
+  box-shadow: inset 0 2px 4px rgba(255, 255, 255, 0.1), 0 4px 8px rgba(0, 0, 0, 0.3), 0 2px 4px rgba(139, 21, 56, 0.4);
 }
 
 .wax-seal::before {
@@ -342,14 +314,9 @@
   right: 3px;
   bottom: 3px;
   border-radius: 50%;
-  background: radial-gradient(
-    circle at 30% 30%,
-    rgba(255, 255, 255, 0.15) 0%,
-    transparent 60%
-  );
+  background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.15) 0%, transparent 60%);
 }
 
-/* Medieval scroll animations */
 @keyframes parchmentUnfurl {
   0% {
     opacity: 0;
@@ -408,14 +375,12 @@
   animation: sealPress 0.6s ease-in-out;
 }
 
-/* Enhanced focus states */
 button:focus-visible,
 input:focus-visible {
   outline: 3px solid var(--gold-accent);
   outline-offset: 2px;
 }
 
-/* Optimized scrollbar */
 ::-webkit-scrollbar {
   width: 10px;
 }
@@ -435,13 +400,11 @@ input:focus-visible {
   background: linear-gradient(to bottom, var(--ink-dark), var(--ink-medium));
 }
 
-/* Selection styling */
 ::selection {
   background: rgba(212, 175, 55, 0.3);
   color: var(--ink-dark);
 }
 
-/* Performance optimizations */
 * {
   box-sizing: border-box;
 }
@@ -451,14 +414,12 @@ img {
   height: auto;
 }
 
-/* Smooth transitions for interactive elements */
 button,
 input,
 [role="button"] {
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Medieval button styling */
 .medieval-button {
   position: relative;
   background: linear-gradient(145deg, var(--bronze-accent), #a0522d);
@@ -466,24 +427,20 @@ input,
   color: var(--parchment-light);
   font-weight: bold;
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.6);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3),
-    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.2);
 }
 
 .medieval-button:hover {
   background: linear-gradient(145deg, var(--gold-accent), var(--bronze-accent));
   transform: translateY(-1px);
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4),
-    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.3);
 }
 
 .medieval-button:active {
   transform: translateY(0);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3),
-    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.1);
 }
 
-/* High contrast mode support */
 @media (prefers-contrast: high) {
   :root {
     --ink-dark: #000000;
@@ -492,7 +449,6 @@ input,
   }
 }
 
-/* Reduced motion support */
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -503,7 +459,6 @@ input,
   }
 }
 
-/* Print optimization */
 @media print {
   body {
     background: white !important;
@@ -514,14 +469,8 @@ input,
   }
 }
 
-/* Loading states */
 .loading-shimmer {
-  background: linear-gradient(
-    90deg,
-    transparent,
-    rgba(255, 255, 255, 0.1),
-    transparent
-  );
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
   background-size: 200% 100%;
   animation: shimmer 2s infinite;
 }
@@ -535,7 +484,6 @@ input,
   }
 }
 
-/* Accessibility improvements */
 .sr-only {
   position: absolute;
   width: 1px;
@@ -548,7 +496,6 @@ input,
   border: 0;
 }
 
-/* Focus trap for modals */
 .focus-trap {
   position: fixed;
   top: 0;
@@ -563,23 +510,19 @@ input,
   pointer-events: auto;
 }
 
-/* Medieval text effects */
 .text-embossed {
-  text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.3),
-    2px 2px 4px rgba(139, 69, 19, 0.4);
+  text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.3), 2px 2px 4px rgba(139, 69, 19, 0.4);
 }
 
 .text-engraved {
   text-shadow: 0 1px 0 rgba(255, 255, 255, 0.2), 0 -1px 0 rgba(139, 69, 19, 0.8);
 }
 
-/* Optimized background blur */
 .backdrop-blur-optimized {
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
 }
 
-/* Performance hint for animations */
 .will-change-transform {
   will-change: transform;
 }
@@ -588,14 +531,12 @@ input,
   will-change: opacity;
 }
 
-/* GPU acceleration for smooth animations */
 .gpu-accelerated {
   transform: translateZ(0);
   backface-visibility: hidden;
   perspective: 1000px;
 }
 
-/* Better text contrast for readability */
 .text-readable {
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 }
