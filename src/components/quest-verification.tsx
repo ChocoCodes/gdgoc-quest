@@ -81,50 +81,53 @@ const QuestVerification = ({
       >
         <ParchmentBackground
           minHeight="min-h-[90vh] sm:min-h-[600px]"
-          className="p-4 sm:p-6 md:p-8 lg:p-12 overflow-hidden"
+          className="overflow-hidden"
         >
           {success ? (
-            <div className="text-center animate-pulse">
-              <div className="text-6xl sm:text-8xl mb-6 sm:mb-8">
-                {quest.isGrandPrize ? "🏆👑" : "🏆"}
-              </div>
-              <h2
-                className={`font-jacquard-display text-display-lg ${
-                  quest.isGrandPrize ? "text-yellow-800" : "text-green-800"
-                } mb-4 sm:mb-6 tracking-wide`}
-              >
-                {quest.isGrandPrize ? "GRAND PRIZE SEALED!" : "QUEST SEALED!"}
-              </h2>
-              <p className="font-serif-readable text-body-lg text-amber-800 leading-relaxed px-2">
-                {quest.isGrandPrize
-                  ? "Thou hast claimed the ultimate prize! Thy name shall be etched in golden letters upon the sacred scrolls of legend!"
-                  : "Thy deed is recorded in the annals of valor. Well done, noble adventurer!"}
-              </p>
-              <div className="mt-6 sm:mt-8 flex items-center justify-center gap-4">
-                <div
-                  className={`w-16 sm:w-24 h-px bg-gradient-to-r from-transparent ${
-                    quest.isGrandPrize ? "to-yellow-700" : "to-green-700"
-                  }`}
-                ></div>
-                <div
-                  className={`w-3 h-3 ${
-                    quest.isGrandPrize ? "bg-yellow-700" : "bg-green-700"
-                  } rotate-45`}
-                ></div>
-                <div
-                  className={`w-16 sm:w-24 h-px bg-gradient-to-l from-transparent ${
-                    quest.isGrandPrize ? "to-yellow-700" : "to-green-700"
-                  }`}
-                ></div>
+            <div className="flex flex-col items-center justify-center h-full text-center animate-pulse py-8">
+              <div className="flex-1 flex flex-col items-center justify-center space-y-6">
+                <div className="text-6xl sm:text-8xl mb-4">
+                  {quest.isGrandPrize ? "🏆👑" : "🏆"}
+                </div>
+                <h2
+                  className={`font-jacquard-display text-display-lg ${
+                    quest.isGrandPrize ? "text-yellow-800" : "text-green-800"
+                  } mb-4 tracking-wide`}
+                >
+                  {quest.isGrandPrize ? "GRAND PRIZE SEALED!" : "QUEST SEALED!"}
+                </h2>
+                <p className="font-serif-readable text-body-lg text-amber-800 leading-relaxed px-4 max-w-lg">
+                  {quest.isGrandPrize
+                    ? "Thou hast claimed the ultimate prize! Thy name shall be etched in golden letters upon the sacred scrolls of legend!"
+                    : "Thy deed is recorded in the annals of valor. Well done, noble adventurer!"}
+                </p>
+                <div className="flex items-center justify-center gap-4 mt-6">
+                  <div
+                    className={`w-16 sm:w-24 h-px bg-gradient-to-r from-transparent ${
+                      quest.isGrandPrize ? "to-yellow-700" : "to-green-700"
+                    }`}
+                  ></div>
+                  <div
+                    className={`w-3 h-3 ${
+                      quest.isGrandPrize ? "bg-yellow-700" : "bg-green-700"
+                    } rotate-45`}
+                  ></div>
+                  <div
+                    className={`w-16 sm:w-24 h-px bg-gradient-to-l from-transparent ${
+                      quest.isGrandPrize ? "to-yellow-700" : "to-green-700"
+                    }`}
+                  ></div>
+                </div>
               </div>
             </div>
           ) : (
-            <div className="flex flex-col h-full">
-              <div className="text-center mb-8 sm:mb-12">
-                <h2 className="font-jacquard-display text-display-lg text-amber-900 mb-4 sm:mb-6 tracking-wide">
+            <div className="flex flex-col h-full py-6">
+              {/* Header section with more top padding */}
+              <div className="text-center mb-6 pt-4">
+                <h2 className="font-jacquard-display text-display-lg text-amber-900 mb-4 tracking-wide">
                   QUEST VERIFICATION
                 </h2>
-                <div className="flex items-center justify-center gap-4 sm:gap-6 mb-6 sm:mb-8">
+                <div className="flex items-center justify-center gap-4 sm:gap-6 mb-4">
                   <div className="w-12 sm:w-20 h-px bg-gradient-to-r from-transparent to-amber-800"></div>
                   <div className="relative">
                     <div className="w-4 h-4 bg-amber-800 rotate-45"></div>
@@ -137,12 +140,13 @@ const QuestVerification = ({
                 </p>
               </div>
 
+              {/* Quest details section */}
               <div
                 className={`${
                   quest.isGrandPrize
                     ? "bg-gradient-to-br from-yellow-50/90 to-yellow-100/80 border-3 border-yellow-800/50"
                     : "bg-gradient-to-br from-amber-50/90 to-amber-100/80 border-3 border-amber-800/50"
-                } rounded-lg p-4 sm:p-6 md:p-8 mb-6 sm:mb-8 w-full shadow-inner relative`}
+                } rounded-lg p-4 sm:p-6 mb-6 w-full shadow-inner relative`}
               >
                 {quest.isGrandPrize && (
                   <div className="absolute top-0 left-0 right-0 bg-gradient-to-r from-yellow-500 to-amber-500 text-yellow-900 text-center py-1 font-jacquard-display font-bold text-xs sm:text-sm tracking-wider shadow-lg rounded-t-lg">
@@ -182,9 +186,7 @@ const QuestVerification = ({
                 <h3
                   className={`font-jacquard-display text-heading-lg font-bold ${
                     quest.isGrandPrize ? "text-yellow-800" : "text-amber-800"
-                  } mb-3 sm:mb-4 tracking-wide ${
-                    quest.isGrandPrize ? "mt-4" : ""
-                  }`}
+                  } mb-3 tracking-wide ${quest.isGrandPrize ? "mt-4" : ""}`}
                 >
                   {quest.title}
                 </h3>
@@ -198,8 +200,9 @@ const QuestVerification = ({
                 </p>
               </div>
 
-              <div className="w-full mb-6 sm:mb-8">
-                <label className="block font-serif-readable text-heading-lg font-bold text-amber-900 mb-3 sm:mb-4 text-center">
+              {/* Input section */}
+              <div className="w-full mb-6">
+                <label className="block font-serif-readable text-heading-lg font-bold text-amber-900 mb-3 text-center">
                   Sacred Verification Rune:
                 </label>
                 <input
@@ -216,13 +219,14 @@ const QuestVerification = ({
                 />
 
                 {error && (
-                  <p className="mt-3 sm:mt-4 text-red-800 font-serif-readable text-body-md font-bold text-center bg-red-100 border border-red-300 rounded-lg py-2 px-4">
+                  <p className="mt-3 text-red-800 font-serif-readable text-body-md font-bold text-center bg-red-100 border border-red-300 rounded-lg py-2 px-4">
                     {error}
                   </p>
                 )}
               </div>
 
-              <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 mb-6 sm:mb-8">
+              {/* Buttons section */}
+              <div className="flex flex-col sm:flex-row gap-3 mb-6">
                 <button
                   onClick={handleVerify}
                   disabled={isVerifying || !passcode.trim()}
@@ -252,8 +256,9 @@ const QuestVerification = ({
                 </button>
               </div>
 
-              <div className="text-center">
-                <p className="font-serif-readable text-body-md text-amber-800 leading-relaxed bg-amber-100/50 border border-amber-300 rounded-lg py-3 sm:py-4 px-4 sm:px-6 text-sm sm:text-base">
+              {/* Footer instruction */}
+              <div className="text-center mt-auto">
+                <p className="font-serif-readable text-body-md text-amber-800 leading-relaxed bg-amber-100/50 border border-amber-300 rounded-lg py-3 px-4 text-sm sm:text-base">
                   Complete thy quest and seek the sacred verification rune from
                   thy quest giver.
                   <br />
