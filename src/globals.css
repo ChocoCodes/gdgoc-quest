@@ -1,6 +1,7 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
+@custom-variant dark (&:is(.dark *));
 @font-face {
   font-family: "Jacquard";
   src: url("/fonts/Jacquard24-Regular.woff2") format("woff2");
@@ -8,7 +9,6 @@
   font-style: normal;
   font-display: swap;
 }
-
 :root {
   --parchment-light: #f8f5f0;
   --parchment-medium: #f0ead6;
@@ -133,7 +133,6 @@
   * {
     @apply border-border outline-ring/50;
   }
-
   body {
     @apply bg-background text-foreground;
     font-family: Georgia, "Times New Roman", serif;
