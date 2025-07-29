@@ -74,7 +74,7 @@ const QuestVerification = ({
       >
         <ParchmentBackground
           minHeight="min-h-[90vh] sm:min-h-[600px] lg:min-h-[700px]"
-          className="overflow-hidden p-8 sm:p-10 lg:p-12"
+          className="overflow-y-hidden p-2 sm:p-10 lg:p-12"
         >
           {success ? (
             <div className="flex flex-col items-center justify-center h-full text-center animate-pulse space-y-10">
@@ -95,7 +95,7 @@ const QuestVerification = ({
               </p>
             </div>
           ) : (
-            <div className="flex flex-col h-full space-y-8 sm:space-y-10 pt-8 lg:space-y-12">
+            <div className="flex flex-col h-full space-y-2 sm:space-y-10 pt-8 lg:space-y-12">
               <div className="text-center space-y-4 sm:space-y-5">
                 <h2 className="font-jacquard-display text-display-lg text-amber-900 tracking-wide">
                   QUEST VERIFICATION
@@ -114,7 +114,7 @@ const QuestVerification = ({
               </div>
 
               <div
-                className={`bg-gradient-to-br from-amber-50/90 to-amber-100/80 border-3 border-amber-800/50 rounded-lg p-8 mb-10 max-w-2xl w-full shadow-inner relative
+                className={`bg-gradient-to-br from-amber-50/90 to-amber-100/80 border-3 border-amber-800/50 rounded-lg p-8 mb-4 max-w-2xl w-full shadow-inner relative
                   ${
                     quest.isGrandPrize
                       ? "from-yellow-50/90 to-yellow-100/80 border-yellow-800/50"
@@ -144,7 +144,7 @@ const QuestVerification = ({
                 </p>
               </div>
 
-              <div className="space-y-4 w-full">
+              <div className="space-y-2 w-full">
                 <label className="block font-serif-readable text-heading-lg font-bold text-amber-900 text-center">
                   Sacred Verification Rune:
                 </label>
@@ -165,7 +165,7 @@ const QuestVerification = ({
                 )}
               </div>
 
-              <div className="flex flex-col sm:flex-row justify-center gap-6 sm:gap-8">
+              <div className="flex flex-col sm:flex-row justify-center gap-4 sm:gap-8">
                 <button
                   onClick={handleVerify}
                   disabled={isVerifying || !passcode.trim()}
@@ -196,12 +196,8 @@ const QuestVerification = ({
               </div>
 
               <div className="text-center mt-auto pt-4 sm:pt-6">
-                <p className="font-serif-readable text-body-md text-amber-800 leading-relaxed bg-amber-100/50 border border-amber-300 rounded-lg py-4 px-6 text-sm sm:text-base">
-                  Complete thy quest and seek the sacred verification rune from
-                  thy quest giver.
-                  <br />
-                  Only they possess the power to seal thy achievement in the
-                  annals of honor.
+                <p className="font-serif-readable text-body-md text-amber-800 leading-relaxed bg-amber-100/50 border border-amber-300 rounded-lg py-4 px-6 text-sm sm:text-xs">
+                  Complete thy quest and claim the sacred verification rune from its keeper to seal thy honor.
                 </p>
               </div>
             </div>
